@@ -1,0 +1,151 @@
+{
+  "name": "flutter-wireless-adb",
+  "displayName": "Flutter Wireless ADB",
+  "description": "Connect VS Code to an Android phone over Wireless Debugging (Android 11+) and run/debug Flutter apps without USB.",
+  "version": "0.2.0",
+  "publisher": "bharatmallapur",
+  "license": "Apache-2.0",
+  "author": "Bharat Mallapur",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "flutter",
+    "android",
+    "adb",
+    "wireless debugging",
+    "wifi adb"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mallapurbharat/flutter-wireless-adb"
+  },
+  "bugs": {
+    "url": "https://github.com/mallapurbharat/flutter-wireless-adb/issues"
+  },
+  "homepage": "https://github.com/mallapurbharat/flutter-wireless-adb#readme",
+  "main": "./out/extension.js",
+  "activationEvents": [],
+  "contributes": {
+    "commands": [
+      {
+        "command": "flutterWirelessAdb.pairWithQr",
+        "title": "Pair New Device with QR Code",
+        "category": "Flutter Wireless ADB"
+      },
+      {
+        "command": "flutterWirelessAdb.pairNewDevice",
+        "title": "Pair New Device",
+        "category": "Flutter Wireless ADB"
+      },
+      {
+        "command": "flutterWirelessAdb.connectKnownDevice",
+        "title": "Connect Known Device",
+        "category": "Flutter Wireless ADB"
+      },
+      {
+        "command": "flutterWirelessAdb.disconnectDevice",
+        "title": "Disconnect Device",
+        "category": "Flutter Wireless ADB"
+      },
+      {
+        "command": "flutterWirelessAdb.listDevices",
+        "title": "List ADB Devices",
+        "category": "Flutter Wireless ADB"
+      },
+      {
+        "command": "flutterWirelessAdb.refreshStatus",
+        "title": "Refresh Status",
+        "category": "Flutter Wireless ADB"
+      },
+      {
+        "command": "flutterWirelessAdb.openSettings",
+        "title": "Open Settings",
+        "category": "Flutter Wireless ADB"
+      },
+      {
+        "command": "flutterWirelessAdb.troubleshooting",
+        "title": "Troubleshooting Help",
+        "category": "Flutter Wireless ADB"
+      },
+      {
+        "command": "flutterWirelessAdb.showMenu",
+        "title": "Show Quick Menu",
+        "category": "Flutter Wireless ADB"
+      }
+    ],
+    "configuration": {
+      "title": "Flutter Wireless ADB",
+      "properties": {
+        "flutterWirelessAdb.adbPath": {
+          "type": "string",
+          "default": "",
+          "description": "Absolute path to the adb executable. Leave empty to auto-detect from ANDROID_HOME, ANDROID_SDK_ROOT, or the system PATH."
+        },
+        "flutterWirelessAdb.flutterPath": {
+          "type": "string",
+          "default": "",
+          "description": "Absolute path to the flutter executable. Leave empty to auto-detect from the system PATH."
+        },
+        "flutterWirelessAdb.autoRunFlutterDevices": {
+          "type": "boolean",
+          "default": true,
+          "description": "After a successful connect, run 'flutter devices' to confirm Flutter recognizes the phone (if Flutter is available)."
+        },
+        "flutterWirelessAdb.knownDevices": {
+          "type": "array",
+          "default": [],
+          "description": "Known devices saved for quick reconnect. Managed by the extension; you normally do not edit this by hand.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "ip": {
+                "type": "string"
+              },
+              "debugPort": {
+                "type": "number"
+              },
+              "serial": {
+                "type": "string"
+              },
+              "lastConnectedAt": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "flutterWirelessAdb.statusRefreshIntervalSeconds": {
+          "type": "number",
+          "default": 30,
+          "minimum": 0,
+          "description": "How often (in seconds) to refresh the connection status in the background. Set to 0 to disable automatic refresh."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile",
+    "test": "node ./out/test/runParsing.js && node ./out/test/runQrTests.js",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/multicast-dns": "^7.2.4",
+    "@types/node": "^20.11.0",
+    "@types/qrcode-generator": "^0.0.16",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.4.0"
+  },
+  "dependencies": {
+    "multicast-dns": "^7.2.5",
+    "qrcode-generator": "^1.5.2"
+  }
+}

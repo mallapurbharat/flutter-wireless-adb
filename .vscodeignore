@@ -1,0 +1,21 @@
+# What to EXCLUDE from the packaged .vsix.
+#
+# NOTE: we deliberately do NOT exclude `node_modules/**`. This is an UNBUNDLED
+# extension with runtime dependencies (qrcode-generator, multicast-dns,
+# dns-packet). vsce automatically prunes devDependencies and packages only the
+# production dependency tree, so the installed VSIX keeps the modules it needs.
+# Excluding all of node_modules here would make the installed extension fail
+# with "Cannot find module 'multicast-dns'" even though F5 works.
+src/**
+.vscode/**
+.vscode-test/**
+**/tsconfig.json
+**/.eslintrc.json
+**/*.map
+**/*.ts
+.gitignore
+.git/**
+*.vsix
+
+# Keep build output and metadata.
+!out/**
